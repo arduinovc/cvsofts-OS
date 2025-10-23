@@ -1,0 +1,13 @@
+---
+title: cvsOS Manual
+author: Vincent Charles
+rights: MIT License
+lang: en-US
+mainlang: english
+otherlang: english
+mainfont: DejaVu Sans
+# Filter preferences:
+# - pandoc-crossref
+linkReferences: true
+---
+
