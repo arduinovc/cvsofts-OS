@@ -34,14 +34,14 @@ To build floppy image
 To run cvsOS via QEMU  
     `make run`
 
-To build all project including documentation. 
+To build all project including documentation.   
     `make all`
 
 To build documentation  
     `make docs`
 
 ## Source
-[Blog Vincent](https://blog.vincentcharles.ovh)
+My website: [Blog Vincent](https://blog.vincentcharles.ovh)
 
 
 
