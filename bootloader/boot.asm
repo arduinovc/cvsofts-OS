@@ -19,11 +19,27 @@ mov [BOOT_DRIVE], dl
 ;N'est pas obligatoire
 global start
 
+;Code ASM à inclure (modulaire)
+;%include "disk.asm"
+;%include "gdt.asm"
+;%include "switchpm.asm"
+
 start:
     ;Charge le message dans le registre SI
-    mov si, welcomemsg
     ;Appel l'affichage du texte
+    mov si, welcomemsg
     call print
+
+    ;Charge le noyau
+    mov si, loadmsg
+    call print
+    ;call load_kernel
+
+    ;Bascule en mode protégé
+    mov si, switchpmmsg
+    call print
+    ;call switch_32bits
+
     ;Interrompt la fonction start
     jmp $
 
@@ -44,7 +60,9 @@ print:
     ret
 
 ;Textes à afficher
-welcomemsg: db "Hello from my cvs/OS Bootloader.", ENDL, 0
+welcomemsg: db "cvs/OS Bootloader v1.0", ENDL, 0
+loadmsg: db "--Chargement du noyau depuis le disque", ENDL, 0
+switchpmmsg: db "--Basculement vers le mode protege.", ENDL, 0
 
 ;Defini le BOOT_DRIVE sur 0
 BOOT_DRIVE db 0
