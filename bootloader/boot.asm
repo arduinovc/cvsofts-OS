@@ -6,23 +6,20 @@
 ;Emplacement pour charger le kernel
 KERNEL_OFFSET equ 0x1000
 
+xor ax, ax        ; AX = 0
+mov ds, ax        ; DS = 0  → toutes les données à partir de 0x0000
+mov es, ax        ; ES = 0  → extra segment, utile pour copies
+mov ss, ax        ; SS = 0  → pile dans le même segment
+mov sp, 0x9000    ; SP = 0x9000 → pile en 0x0000:0x9000
+mov bp, sp
+
 ;Stock le numéro du disque de démarrage
 mov [BOOT_DRIVE], dl
 
-;Setup le stack
-mov bp, 0x9000
-mov sp, bp
-
 ;N'est pas obligatoire
-;global start
+global start
 
 start:
-    ;Reset le registre AX
-    xor ax, ax
-    ;Reset les registres DS, ES, SS
-    mov ds, ax
-    mov es, ax
-    mov ss, ax
     ;Charge le message dans le registre SI
     mov si, welcomemsg
     ;Appel l'affichage du texte
