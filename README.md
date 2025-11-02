@@ -13,7 +13,7 @@ YM.    ,    VVV    L.   I8 AW   `Mb.    ,dP' Mb     dM
 
 ## Build information
 cvs/OS by Vincent Charles @2025  
-Build from NASM on macOS 12 (Monterey)  
+Build from NASM on macOS 26 (Tahoe)  
 
 ## How to run
 
@@ -39,6 +39,12 @@ To build all project including documentation.
 
 To build documentation  
     `make docs`
+
+To merge all source file into .txt  
+    `make printcode`  
+
+To clean repo (build and docs/export folders)  
+    `make clean`  
 
 ## Source
 My website: [Blog Vincent](https://blog.vincentcharles.ovh)
