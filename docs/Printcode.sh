@@ -4,6 +4,9 @@
 # Includes specific files without extensions (like Makefile).
 # -----------------------------------------------------------------------------
 
+# Changement de dossier de départ
+cd ..
+
 OUTPUT_FILE="docs/export/cvsOS_merged.txt"
 
 # Extensions of files to include
