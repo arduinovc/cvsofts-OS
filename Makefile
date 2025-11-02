@@ -3,7 +3,7 @@ BOOTLOADER_DIR=bootloader
 KERNEL_DIR=kernel
 BUILD_DIR=build
 DOCS_DIR=docs
-DOCS_EXPORTDIR=docs/export
+DOCS_EXPORTDIR=build/docs
 OSNAME=cvsOS
 
 all: boot.bin doc printcode
@@ -20,7 +20,7 @@ doc: README.md
 	pandoc -s --toc --toc-depth 2 $< --metadata-file docs/template/metadata.yml -t html5 --template docs/template/html.html -o $(DOCS_EXPORTDIR)/$(OSNAME).html
 
 printcode:
-	cd $(DOCS_DIR) && sh Printcode.sh
+	cd $(DOCS_DIR)/scripts && sh printcode.sh
 
 clean:
 	cd $(BUILD_DIR) && rm -f *.bin

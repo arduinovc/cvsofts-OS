@@ -31,13 +31,13 @@ start:
     call print
 
     ;Charge le noyau
-    mov si, loadmsg
-    call print
+    ;mov si, loadmsg
+    ;call print
     ;call load_kernel
 
     ;Bascule en mode protégé
-    mov si, switchpmmsg
-    call print
+    ;mov si, switchpmmsg
+    ;call print
     ;call switch_32bits
 
     ;Interrompt la fonction start

@@ -1,7 +1,7 @@
 ================================================================================
 📄 FICHIER : Makefile
 📁 EMPLACEMENT : Makefile
-📏 TAILLE : 608 octets
+📏 TAILLE : 615 octets
 📝 DESCRIPTION : 
 ================================================================================
 
@@ -10,7 +10,7 @@ BOOTLOADER_DIR=bootloader
 KERNEL_DIR=kernel
 BUILD_DIR=build
 DOCS_DIR=docs
-DOCS_EXPORTDIR=docs/export
+DOCS_EXPORTDIR=build/docs
 OSNAME=cvsOS
 
 all: boot.bin doc printcode
@@ -27,7 +27,7 @@ doc: README.md
 	pandoc -s --toc --toc-depth 2 $< --metadata-file docs/template/metadata.yml -t html5 --template docs/template/html.html -o $(DOCS_EXPORTDIR)/$(OSNAME).html
 
 printcode:
-	cd $(DOCS_DIR) && sh Printcode.sh
+	cd $(DOCS_DIR)/scripts && sh printcode.sh
 
 clean:
 	cd $(BUILD_DIR) && rm -f *.bin
@@ -36,7 +36,7 @@ clean:
 ================================================================================
 📄 FICHIER : boot.asm
 📁 EMPLACEMENT : bootloader/boot.asm
-📏 TAILLE : 1561 octets
+📏 TAILLE : 1565 octets
 📝 DESCRIPTION : 
 ================================================================================
 
@@ -73,13 +73,13 @@ start:
     call print
 
     ;Charge le noyau
-    mov si, loadmsg
-    call print
+    ;mov si, loadmsg
+    ;call print
     ;call load_kernel
 
     ;Bascule en mode protégé
-    mov si, switchpmmsg
-    call print
+    ;mov si, switchpmmsg
+    ;call print
     ;call switch_32bits
 
     ;Interrompt la fonction start

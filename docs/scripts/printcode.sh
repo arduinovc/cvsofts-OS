@@ -5,9 +5,9 @@
 # -----------------------------------------------------------------------------
 
 # Changement de dossier de départ
-cd ..
+cd ../..
 
-OUTPUT_FILE="docs/export/cvsOS_merged.txt"
+OUTPUT_FILE="build/docs/cvsOS_merged.txt"
 
 # Extensions of files to include
 INCLUDE_EXTENSIONS=("asm" "h" "c" "md")
