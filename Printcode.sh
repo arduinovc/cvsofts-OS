@@ -1,25 +1,24 @@
 #!/bin/bash
 # -----------------------------------------------------------------------------
-# Fusionne tous les fichiers de code d’un projet dans un seul fichier texte
-# en ajoutant un en-tête avec :
-# - le nom du fichier
-# - son emplacement
-# - sa taille
-# - une description à compléter manuellement
+# Merge all project files into one file with headers.
+# Includes specific files without extensions (like Makefile).
 # -----------------------------------------------------------------------------
 
 OUTPUT_FILE="docs/export/cvsOS_merged.txt"
 
-# Extensions de fichiers à inclure (à adapter selon ton projet)
-INCLUDE_EXTENSIONS=("asm" "c" "h" "md")
+# Extensions of files to include
+INCLUDE_EXTENSIONS=("asm" "h" "c" "md")
 
-# Dossiers à ignorer
-EXCLUDE_DIRS=("template" "build")
+# Specific filenames (without extension) to include
+INCLUDE_FILES=("Makefile")
 
-# Supprime le fichier précédent s’il existe
+# Folders to exclude
+EXCLUDE_DIRS=("nbuild" "docs/export")
+
+# Remove previous merged file
 rm -f "$OUTPUT_FILE"
 
-# Fonction pour vérifier si un élément est dans un tableau
+# Helper: check if array contains a value
 contains() {
     local e match="$1"
     shift
@@ -27,9 +26,9 @@ contains() {
     return 1
 }
 
-# Boucle sur tous les fichiers du projet
+# Walk through all files
 find . -type f | while read -r file; do
-    # Exclure le fichier de sortie et les dossiers ignorés
+    # Skip output file and excluded directories
     [[ "$file" == "./$OUTPUT_FILE" ]] && continue
 
     skip=false
@@ -41,19 +40,27 @@ find . -type f | while read -r file; do
     done
     $skip && continue
 
-    # Vérifie l'extension
-    ext="${file##*.}"
-    if ! contains "$ext" "${INCLUDE_EXTENSIONS[@]}"; then
-        continue
+    # Get file name and extension
+    filename=$(basename "$file")
+    ext="${filename##*.}"
+
+    # Include if it matches either extension or filename list
+    include=false
+    if contains "$ext" "${INCLUDE_EXTENSIONS[@]}"; then
+        include=true
+    elif contains "$filename" "${INCLUDE_FILES[@]}"; then
+        include=true
     fi
 
-    # Récupère la taille du fichier (en octets)
+    $include || continue
+
+    # Get size (in bytes)
     size=$(stat -f%z "$file" 2>/dev/null)
 
-    # Écrit l’en-tête
+    # Write header + content
     {
         echo "================================================================================"
-        echo "📄 FICHIER : $(basename "$file")"
+        echo "📄 FICHIER : $filename"
         echo "📁 EMPLACEMENT : ${file#./}"
         echo "📏 TAILLE : ${size:-inconnue} octets"
         echo "📝 DESCRIPTION : "
@@ -66,4 +73,4 @@ find . -type f | while read -r file; do
 
 done
 
-echo "✅ Fusion terminée : fichier généré -> $OUTPUT_FILE"
+echo "Fusion terminée : fichier généré -> $OUTPUT_FILE"
